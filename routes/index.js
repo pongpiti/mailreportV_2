@@ -382,6 +382,7 @@ router.post("/all", enSureAuthenticated, function (req, res, next) {
           console.log(sel)
           search.addIndex('from');
           search.addIndex('subject');
+          search.addIndex('date');
           search.addDocuments(result);
           var seee = search.search(date);
           if (err) throw err;
