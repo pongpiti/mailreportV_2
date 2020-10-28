@@ -16,12 +16,12 @@ function enSureAuthenticated(req, res, next) {
   }
 }
 
-router.get("/profile", enSureAuthenticated, function (req, res, next) {
-  res.render("showdatainemail/profile");
-});
-
 router.get("/", enSureAuthenticated, function (req, res, next) {
   res.render("index");
+});
+
+router.get("/profile", enSureAuthenticated, function (req, res, next) {
+  res.render("showdatainemail/profile");
 });
 
 router.get("/show/:subject", enSureAuthenticated, function (req, res, next) {
@@ -282,7 +282,7 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("email");
-    var query = { subject: req.params.subject };
+/*     var query = { subject: req.params.subject }; */
     var date = req.body.date;
     if (req.params.subject == "all") {
       MongoClient.connect(url, function (err, db) {
@@ -338,18 +338,18 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         "></iframe>";
       dbo
         .collection("data")
-        .find(query)
+        .find({
+          $or: [
+            { subject: { $regex: date } },
+            { from: { $regex: date } },
+            { date: { $regex: date } },
+          ],
+        })
         .toArray(function (err, result) {
-          var search = new JsSearch.Search("_id");
-          search.addIndex("from");
-          search.addIndex("subject");
-          search.addIndex("date");
-          search.addDocuments(result);
-          var seee = search.search(date);
           if (err) throw err;
           db.close();
           res.render("showdatainemail/showdata", {
-            lists: seee,
+            lists: result,
             title: req.params.subject,
             charts: chart,
           });
@@ -379,18 +379,18 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         "></iframe>";
       dbo
         .collection("data")
-        .find(query)
+        .find({
+          $or: [
+            { subject: { $regex: date } },
+            { from: { $regex: date } },
+            { date: { $regex: date } },
+          ],
+        })
         .toArray(function (err, result) {
-          var search = new JsSearch.Search("_id");
-          search.addIndex("from");
-          search.addIndex("subject");
-          search.addIndex("date");
-          search.addDocuments(result);
-          var seee = search.search(date);
           if (err) throw err;
           db.close();
           res.render("showdatainemail/showdata", {
-            lists: seee,
+            lists: result,
             title: req.params.subject,
             charts: chart,
           });
@@ -420,18 +420,18 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         "></iframe>";
       dbo
         .collection("data")
-        .find(query)
+        .find({
+          $or: [
+            { subject: { $regex: date } },
+            { from: { $regex: date } },
+            { date: { $regex: date } },
+          ],
+        })
         .toArray(function (err, result) {
-          var search = new JsSearch.Search("_id");
-          search.addIndex("from");
-          search.addIndex("subject");
-          search.addIndex("date");
-          search.addDocuments(result);
-          var seee = search.search(date);
           if (err) throw err;
           db.close();
           res.render("showdatainemail/showdata", {
-            lists: seee,
+            lists: result,
             title: req.params.subject,
             charts: chart,
           });
@@ -461,18 +461,18 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         "></iframe>";
       dbo
         .collection("data")
-        .find(query)
+        .find({
+          $or: [
+            { subject: { $regex: date } },
+            { from: { $regex: date } },
+            { date: { $regex: date } },
+          ],
+        })
         .toArray(function (err, result) {
-          var search = new JsSearch.Search("_id");
-          search.addIndex("from");
-          search.addIndex("subject");
-          search.addIndex("date");
-          search.addDocuments(result);
-          var seee = search.search(date);
           if (err) throw err;
           db.close();
           res.render("showdatainemail/showdata", {
-            lists: seee,
+            lists: result,
             title: req.params.subject,
             charts: chart,
           });
@@ -502,18 +502,18 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         "></iframe>";
       dbo
         .collection("data")
-        .find(query)
+        .find({
+          $or: [
+            { subject: { $regex: date } },
+            { from: { $regex: date } },
+            { date: { $regex: date } },
+          ],
+        })
         .toArray(function (err, result) {
-          var search = new JsSearch.Search("_id");
-          search.addIndex("from");
-          search.addIndex("subject");
-          search.addIndex("date");
-          search.addDocuments(result);
-          var seee = search.search(date);
           if (err) throw err;
           db.close();
           res.render("showdatainemail/showdata", {
-            lists: seee,
+            lists: result,
             title: req.params.subject,
             charts: chart,
           });
@@ -543,18 +543,18 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         "></iframe>";
       dbo
         .collection("data")
-        .find(query)
+        .find({
+          $or: [
+            { subject: { $regex: date } },
+            { from: { $regex: date } },
+            { date: { $regex: date } },
+          ],
+        })
         .toArray(function (err, result) {
-          var search = new JsSearch.Search("_id");
-          search.addIndex("from");
-          search.addIndex("subject");
-          search.addIndex("date");
-          search.addDocuments(result);
-          var seee = search.search(date);
           if (err) throw err;
           db.close();
           res.render("showdatainemail/showdata", {
-            lists: seee,
+            lists: result,
             title: req.params.subject,
             charts: chart,
           });
@@ -628,34 +628,33 @@ router.post("/sendemail", enSureAuthenticated, function (req, res, next) {
 
 router.post("/all", enSureAuthenticated, function (req, res, next) {
   var date = req.body.date;
-
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("email");
 
     var query1 = {
       $or: [
-        { subject: "ใบเสนอราคา" },
-        { subject: "ใบแจ้งหนี้" },
-        { subject: "ใบเสร็จ" },
-        { subject: "สั่งซื้อสินค้า" },
-        { subject: "ใบส่งสินค้า" },
-        { subject: "ใบขอซื้อ" },
+        { subject: { $regex: "ใบเสนอราคา" } },
+        { subject: { $regex: "ใบแจ้งหนี้" } },
+        { subject: { $regex: "ใบเสร็จ" } },
+        { subject: { $regex: "สั่งซื้อสินค้า" } },
+        { subject: { $regex: "ใบส่งสินค้า" } },
+        { subject: { $regex: "ใบขอซื้อ" } },
       ],
     };
     dbo
       .collection("data")
-      .find(query1)
+      .find({
+        $or: [
+          { subject: { $regex: date } },
+          { from: { $regex: date } },
+          { date: { $regex: date } },
+        ],
+      })
       .toArray(function (err, result) {
-        var search = new JsSearch.Search("_id");
-        search.addIndex("from");
-        search.addIndex("subject");
-        search.addIndex("date");
-        search.addDocuments(result);
-        var seee = search.search(date);
         if (err) throw err;
         db.close();
-        res.render("showdatainemail/all", { lists: seee });
+        res.render("showdatainemail/all", { lists: result });
       });
   });
 });
@@ -674,7 +673,6 @@ router.get("/all", enSureAuthenticated, function (req, res, next) {
         { subject: "ใบขอซื้อ" },
       ],
     };
-
     dbo
       .collection("data")
       .find(query1)
