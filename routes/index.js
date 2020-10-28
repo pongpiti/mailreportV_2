@@ -20,6 +20,10 @@ router.get("/", enSureAuthenticated, function (req, res, next) {
   res.render("user/login");
 });
 
+router.get("/profile", enSureAuthenticated, function (req, res, next) {
+  res.render("showdatainemail/profile");
+});
+
 router.get("/home", enSureAuthenticated, function (req, res, next) {
   var sub = req.body.sub;
   console.log(sub);
