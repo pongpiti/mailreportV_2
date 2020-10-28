@@ -66,7 +66,7 @@
     }
     .e {
       font-family: "Kanit", sans-serif;
-      text-align: center;
+      text-align: left;
       color: black;
     }
   </style>
@@ -107,11 +107,67 @@
               <div class="col-md mb-md-0 mb-5">
                 <form id="contact-form" name="contact-form" method="POST">
                   <!--Grid row-->
-                  <div class="row p-3">
+                  <div class="row">
                     <!--Grid column-->
                     <!--Grid column-->
 
                     <!--Grid column-->
+                    <div class="col-md-6 p-2">
+                      <div class="md-form mb-0">
+                        <input
+                          type="text"
+                          id="email"
+                          name="email"
+                          class="form-control"
+                          placeholder="Send to"
+                          height="100%"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 p-2">
+                      <input
+                        type="text"
+                        id="email"
+                        name="subject"
+                        class="form-control"
+                        placeholder="Subject"
+                        height="100%"
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="md-form">
+                        <label for="message">Your message</label>
+                        <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+                        <textarea name="content"></textarea>
+                        <script>
+                          CKEDITOR.replace("content");
+                        </script>
+                      </div>
+                    </div>
+                  </div>
+                <!--   <div class="p-5">
+                    <p>choose flie</p>
+                    <input
+                      type="file"
+                      name="myfile"
+                      id="myfile"
+                      multiple="multiple"
+                    />
+                  </div> -->
+
+                  <div class="py-5">
+                    &nbsp; &nbsp;<button
+                      type="submit"
+                      class="btn btn-dark btn-lg"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+                <!-- <form id="contact-form" name="contact-form" method="POST">
+                  <div class="row p-3">
                     <div class="col-md-6 p-2">
                       <div class="md-form mb-0">
                         <input
@@ -136,11 +192,9 @@
                         />
                       </div>
                     </div>
-                    <!--Grid column-->
                   </div>
 
                   <div class="row">
-                    <!--Grid column-->
                     <div class="col-md-12">
                       <div class="md-form">
                         <label for="message">Your message</label>
@@ -152,15 +206,19 @@
                       </div>
                     </div>
                   </div>
-                  <!--Grid row-->
+                  <input
+                    type="file"
+                    required
+                    class="form-control"
+                    name="image"
+                    id=""
+                  />
                   <div class="py-5">
                     <button type="submit" class="btn btn-dark btn-lg">
                       Submit
                     </button>
                   </div>
-                </form>
-
-                <div class="status"></div>
+                </form> -->
               </div>
             </div>
           </section>

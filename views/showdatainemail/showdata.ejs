@@ -81,7 +81,6 @@
         <span class="a">Report</span>
       </header>
 
-      <!-- Overlay effect when opening sidebar on small screens -->
       <div
         class="w3-overlay w3-hide-large"
         onclick="w3_close()"
@@ -90,7 +89,6 @@
         id="myOverlay"
       ></div>
 
-      <!-- !PAGE CONTENT! -->
       <div class="w3-main" style="margin-left: 340px; margin-right: 40px">
         <div class="container py-5">
           <table class="table table-borderless bg-light shadow-sm">
@@ -114,13 +112,33 @@
               <tr>
               <%- charts %> 
               </tr>
+              <form class="form-group y-3" action="" method="post">
+                <div class="row p-3">
+                  <div class="col-1"><h4 class="a b">Search</h4></div>
+                  <div class="col-9">
+                    <input
+                      type="text"
+                      id="email"
+                      name="date"
+                      class="form-control"
+                      placeholder="Search by From OR Date"
+                      height="100%"
+                    />
+                  </div>
+                  <div class="col-2">
+                    <button type="submit" class="btn btn-secondary btn-block">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </form>
             </tbody>
           </table>
         </div>
       </div>
     </section>
     <script>
-      // Script to open and close sidebar
+     
       function w3_open() {
         document.getElementById("mySidebar").style.display = "block";
         document.getElementById("myOverlay").style.display = "block";
@@ -131,7 +149,6 @@
         document.getElementById("myOverlay").style.display = "none";
       }
 
-      // Modal Image Gallery
       function onClick(element) {
         document.getElementById("img01").src = element.src;
         document.getElementById("modal01").style.display = "block";

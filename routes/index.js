@@ -1,6 +1,13 @@
+const { request } = require("express");
 var express = require("express");
 var router = express.Router();
 var JsSearch = require("js-search");
+var multer = require("multer");
+var nodemailer = require("nodemailer");
+var MongoClient = require("mongodb").MongoClient;
+var url =
+  "mongodb+srv://pongpiti_1:1234@cluster0-rbtdf.mongodb.net/email?retryWrites=true&w=majority";
+
 function enSureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -9,11 +16,6 @@ function enSureAuthenticated(req, res, next) {
   }
 }
 
-var MongoClient = require("mongodb").MongoClient;
-var url =
-  "mongodb+srv://pongpiti_1:1234@cluster0-rbtdf.mongodb.net/email?retryWrites=true&w=majority";
-
-/* GET home page. */
 router.get("/", enSureAuthenticated, function (req, res, next) {
   res.render("user/login");
 });
@@ -42,7 +44,6 @@ router.get("/show/:subject", enSureAuthenticated, function (req, res, next) {
     if (err) throw err;
     var dbo = db.db("email");
     var query = { subject: req.params.subject };
-
     if (req.params.subject == "all") {
       MongoClient.connect(url, function (err, db) {
         if (err) throw err;
@@ -292,16 +293,300 @@ router.get("/show/:subject", enSureAuthenticated, function (req, res, next) {
   });
 });
 
+router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("email");
+    var query = { subject: req.params.subject };
+    var date = req.body.date;
+    if (req.params.subject == "all") {
+      MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("email");
+        var query1 = {
+          $or: [
+            { subject: "ใบเสนอราคา" },
+            { subject: "ใบแจ้งหนี้" },
+            { subject: "ใบเสร็จ" },
+            { subject: "สั่งซื้อสินค้า" },
+            { subject: "ใบส่งสินค้า" },
+            { subject: "ใบขอซื้อ" },
+          ],
+        };
+
+        dbo
+          .collection("data")
+          .find(query1)
+          .toArray(async function (err, result) {
+            var col = dbo.collection("data");
+            const dates = await col.distinct("date");
+            if (err) throw err;
+            db.close();
+            res.render("showdatainemail/all", {
+              lists: result,
+              datetime: dates,
+            });
+          });
+      });
+    } else if (req.params.subject == "ใบเสนอราคา") {
+      var chart =
+        "<iframe" +
+        " " +
+        'style="' +
+        " " +
+        "background: #21313c;" +
+        " " +
+        "border: none;" +
+        " " +
+        "border-radius: 2px;" +
+        " " +
+        "box-shadow: 0 2px 10px 0 rgba(70, 76, 79, 0.2);" +
+        " " +
+        '"' +
+        " " +
+        "width=100%" +
+        " " +
+        'height="480"' +
+        " " +
+        'src="https://charts.mongodb.com/charts-project-0-dpnhp/embed/charts?id=d59d9509-e41b-403b-b401-1704c1125e36&autoRefresh=10&theme=dark"' +
+        " " +
+        "></iframe>";
+      dbo
+        .collection("data")
+        .find(query)
+        .toArray(function (err, result) {
+          var search = new JsSearch.Search("_id");
+          search.addIndex("from");
+          search.addIndex("subject");
+          search.addIndex("date");
+          search.addDocuments(result);
+          var seee = search.search(date);
+          if (err) throw err;
+          db.close();
+          res.render("showdatainemail/showdata", {
+            lists: seee,
+            title: req.params.subject,
+            charts: chart,
+          });
+        });
+    } else if (req.params.subject == "ใบแจ้งหนี้") {
+      var chart =
+        "<iframe" +
+        " " +
+        'style="' +
+        " " +
+        "background: #21313c;" +
+        " " +
+        "border: none;" +
+        " " +
+        "border-radius: 2px;" +
+        " " +
+        "box-shadow: 0 2px 10px 0 rgba(70, 76, 79, 0.2);" +
+        " " +
+        '"' +
+        " " +
+        "width=100%" +
+        " " +
+        'height="480"' +
+        " " +
+        'src="https://charts.mongodb.com/charts-project-0-dpnhp/embed/charts?id=410c9328-fa39-4266-855d-c9819e2642a8&autoRefresh=10&theme=dark"' +
+        " " +
+        "></iframe>";
+      dbo
+        .collection("data")
+        .find(query)
+        .toArray(function (err, result) {
+          var search = new JsSearch.Search("_id");
+          search.addIndex("from");
+          search.addIndex("subject");
+          search.addIndex("date");
+          search.addDocuments(result);
+          var seee = search.search(date);
+          if (err) throw err;
+          db.close();
+          res.render("showdatainemail/showdata", {
+            lists: seee,
+            title: req.params.subject,
+            charts: chart,
+          });
+        });
+    } else if (req.params.subject == "ใบเสร็จ") {
+      var chart =
+        "<iframe" +
+        " " +
+        'style="' +
+        " " +
+        "background: #21313c;" +
+        " " +
+        "border: none;" +
+        " " +
+        "border-radius: 2px;" +
+        " " +
+        "box-shadow: 0 2px 10px 0 rgba(70, 76, 79, 0.2);" +
+        " " +
+        '"' +
+        " " +
+        "width=100%" +
+        " " +
+        'height="480"' +
+        " " +
+        'src="https://charts.mongodb.com/charts-project-0-dpnhp/embed/charts?id=c8f56a99-6531-4420-9a7e-568db12eed3f&autoRefresh=10&theme=dark"' +
+        " " +
+        "></iframe>";
+      dbo
+        .collection("data")
+        .find(query)
+        .toArray(function (err, result) {
+          var search = new JsSearch.Search("_id");
+          search.addIndex("from");
+          search.addIndex("subject");
+          search.addIndex("date");
+          search.addDocuments(result);
+          var seee = search.search(date);
+          if (err) throw err;
+          db.close();
+          res.render("showdatainemail/showdata", {
+            lists: seee,
+            title: req.params.subject,
+            charts: chart,
+          });
+        });
+    } else if (req.params.subject == "สั่งซื้อสินค้า") {
+      var chart =
+        "<iframe" +
+        " " +
+        'style="' +
+        " " +
+        "background: #21313c;" +
+        " " +
+        "border: none;" +
+        " " +
+        "border-radius: 2px;" +
+        " " +
+        "box-shadow: 0 2px 10px 0 rgba(70, 76, 79, 0.2);" +
+        " " +
+        '"' +
+        " " +
+        "width=100%" +
+        " " +
+        'height="480"' +
+        " " +
+        'src="https://charts.mongodb.com/charts-project-0-dpnhp/embed/charts?id=5d3e8ffa-2406-46d8-a110-2994bbe16d83&autoRefresh=10&theme=dark"' +
+        " " +
+        "></iframe>";
+      dbo
+        .collection("data")
+        .find(query)
+        .toArray(function (err, result) {
+          var search = new JsSearch.Search("_id");
+          search.addIndex("from");
+          search.addIndex("subject");
+          search.addIndex("date");
+          search.addDocuments(result);
+          var seee = search.search(date);
+          if (err) throw err;
+          db.close();
+          res.render("showdatainemail/showdata", {
+            lists: seee,
+            title: req.params.subject,
+            charts: chart,
+          });
+        });
+    } else if (req.params.subject == "ใบส่งสินค้า") {
+      var chart =
+        "<iframe" +
+        " " +
+        'style="' +
+        " " +
+        "background: #21313c;" +
+        " " +
+        "border: none;" +
+        " " +
+        "border-radius: 2px;" +
+        " " +
+        "box-shadow: 0 2px 10px 0 rgba(70, 76, 79, 0.2);" +
+        " " +
+        '"' +
+        " " +
+        "width=100%" +
+        " " +
+        'height="480"' +
+        " " +
+        'src="https://charts.mongodb.com/charts-project-0-dpnhp/embed/charts?id=d0ba18bf-2257-47f6-9fea-007349d715e7&autoRefresh=10&theme=dark"' +
+        " " +
+        "></iframe>";
+      dbo
+        .collection("data")
+        .find(query)
+        .toArray(function (err, result) {
+          var search = new JsSearch.Search("_id");
+          search.addIndex("from");
+          search.addIndex("subject");
+          search.addIndex("date");
+          search.addDocuments(result);
+          var seee = search.search(date);
+          if (err) throw err;
+          db.close();
+          res.render("showdatainemail/showdata", {
+            lists: seee,
+            title: req.params.subject,
+            charts: chart,
+          });
+        });
+    } else if (req.params.subject == "ใบขอซื้อ") {
+      var chart =
+        "<iframe" +
+        " " +
+        'style="' +
+        " " +
+        "background: #21313c;" +
+        " " +
+        "border: none;" +
+        " " +
+        "border-radius: 2px;" +
+        " " +
+        "box-shadow: 0 2px 10px 0 rgba(70, 76, 79, 0.2);" +
+        " " +
+        '"' +
+        " " +
+        "width=100%" +
+        " " +
+        'height="480"' +
+        " " +
+        'src="https://charts.mongodb.com/charts-project-0-dpnhp/embed/charts?id=e3f76921-f9d7-4f1f-b1ad-944b8491e1dc&autoRefresh=10&theme=dark"' +
+        " " +
+        "></iframe>";
+      dbo
+        .collection("data")
+        .find(query)
+        .toArray(function (err, result) {
+          var search = new JsSearch.Search("_id");
+          search.addIndex("from");
+          search.addIndex("subject");
+          search.addIndex("date");
+          search.addDocuments(result);
+          var seee = search.search(date);
+          if (err) throw err;
+          db.close();
+          res.render("showdatainemail/showdata", {
+            lists: seee,
+            title: req.params.subject,
+            charts: chart,
+          });
+        });
+    }
+  });
+});
+
 router.get("/sendemail", enSureAuthenticated, function (req, res, next) {
   res.render("showdatainemail/sendmail");
 });
 
 router.post("/sendemail", enSureAuthenticated, function (req, res, next) {
-  const nodemailer = require("nodemailer");
   var email = req.body.email;
   var subject = req.body.subject;
   var message = req.body.content;
-  /*   var paths = req.filetoupload.path; */
+  var fileX = req.body.myfile;
 
   async function main() {
     let transporter = nodemailer.createTransport({
@@ -324,8 +609,9 @@ router.post("/sendemail", enSureAuthenticated, function (req, res, next) {
       to: email, // อีเมลผู้รับ สามารถกำหนดได้มากกว่า 1 อีเมล โดยขั้นด้วย ,(Comma)
       subject: subject, // หัวข้ออีเมล
       html: message,
-      /*  attachments: [{ filename: paths, path: __dirname + "\\" + paths }], // plain text body */
+      /*  attachments: [{ filename: fileX, path: fileX }],  */ // plain text body
     });
+
     MongoClient.connect(url, function (err, db) {
       var a = new Date();
       var b = new Date();
@@ -357,9 +643,11 @@ router.post("/sendemail", enSureAuthenticated, function (req, res, next) {
 
 router.post("/all", enSureAuthenticated, function (req, res, next) {
   var date = req.body.date;
+
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("email");
+
     var query1 = {
       $or: [
         { subject: "ใบเสนอราคา" },
@@ -373,23 +661,17 @@ router.post("/all", enSureAuthenticated, function (req, res, next) {
     dbo
       .collection("data")
       .find(query1)
-      .toArray(
-        /* async */ function (err, result) {
-          /*  var col = dbo.collection("data");
-        const dates = await col.distinct("date"); */
-          var search = new JsSearch.Search("_id");
-          var sel = req.body.sel;
-          console.log(sel)
-          search.addIndex('from');
-          search.addIndex('subject');
-          search.addIndex('date');
-          search.addDocuments(result);
-          var seee = search.search(date);
-          if (err) throw err;
-          db.close();
-          res.render("showdatainemail/all", { lists: seee});
-        }
-      );
+      .toArray(function (err, result) {
+        var search = new JsSearch.Search("_id");
+        search.addIndex("from");
+        search.addIndex("subject");
+        search.addIndex("date");
+        search.addDocuments(result);
+        var seee = search.search(date);
+        if (err) throw err;
+        db.close();
+        res.render("showdatainemail/all", { lists: seee });
+      });
   });
 });
 
