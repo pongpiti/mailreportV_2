@@ -625,30 +625,25 @@ router.post("/all", enSureAuthenticated, function (req, res, next) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("email");
-
-    var query1 = {
-      $or: [
-        { subject: { $regex: "ใบเสนอราคา" } },
-        { subject: { $regex: "ใบแจ้งหนี้" } },
-        { subject: { $regex: "ใบเสร็จ" } },
-        { subject: { $regex: "สั่งซื้อสินค้า" } },
-        { subject: { $regex: "ใบส่งสินค้า" } },
-        { subject: { $regex: "ใบขอซื้อ" } },
-      ],
-    };
     dbo
       .collection("data")
       .find({
         $and: [
-          { $or: [{ from: { $regex: date } }, { date: { $regex: date } }] },
           {
             $or: [
-              { subject: { $regex: "ใบเสนอราคา" } },
-              { subject: { $regex: "ใบแจ้งหนี้" } },
-              { subject: { $regex: "ใบเสร็จ" } },
-              { subject: { $regex: "สั่งซื้อสินค้า" } },
-              { subject: { $regex: "ใบส่งสินค้า" } },
-              { subject: { $regex: "ใบขอซื้อ" } },
+              { from: { $regex: date } },
+              { date: { $regex: date } },
+              { subject: { $regex: date } },
+            ],
+          },
+          {
+            $or: [
+              { subject: "ใบเสนอราคา" },
+              { subject: "ใบแจ้งหนี้" },
+              { subject: "ใบเสร็จ" },
+              { subject: "สั่งซื้อสินค้า" },
+              { subject: "ใบส่งสินค้า" },
+              { subject: "ใบขอซื้อ" },
             ],
           },
         ],
