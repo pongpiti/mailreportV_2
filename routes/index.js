@@ -21,22 +21,7 @@ router.get("/profile", enSureAuthenticated, function (req, res, next) {
 });
 
 router.get("/", enSureAuthenticated, function (req, res, next) {
-  var sub = req.body.sub;
-  console.log(sub);
-  MongoClient.connect(url, function (err, db) {
-    if (err) throw err;
-    var dbo = db.db("email");
-    var query = { subject: sub };
-    dbo
-      .collection("subject")
-      .find({})
-      .toArray(function (err, result) {
-        if (err) throw err;
-        /*   console.log(result); */
-        db.close();
-        res.render("index", { lists: result });
-      });
-  });
+  res.render("index");
 });
 
 router.get("/show/:subject", enSureAuthenticated, function (req, res, next) {

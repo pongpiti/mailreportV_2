@@ -13,7 +13,6 @@ function enSureAuthenticated(req, res, next) {
     res.redirect("/users/login");
   }
 }
-
 /* GET users listing. */
 /*get profile page */
 /* router.get("/profile", enSureAuthenticated, function (req, res, next) {
@@ -27,6 +26,7 @@ function enSureAuthenticated(req, res, next) {
 router.get("/login", function (req, res, next) {
   res.render("user/login", { title: "login" });
 });
+
 /*get logout page */
 router.get("/logout", function (req, res, next) {
   req.logout();
