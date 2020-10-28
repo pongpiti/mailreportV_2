@@ -83,7 +83,7 @@ router.get("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -119,7 +119,7 @@ router.get("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -155,7 +155,7 @@ router.get("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -191,7 +191,7 @@ router.get("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -227,7 +227,7 @@ router.get("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -263,7 +263,7 @@ router.get("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -338,7 +338,7 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -379,7 +379,7 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -420,7 +420,7 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -461,7 +461,7 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -502,7 +502,7 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
@@ -543,7 +543,7 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
         " " +
         'style="' +
         " " +
-        "background: #21313c;" +
+        "background: #131313;" +
         " " +
         "border: none;" +
         " " +
