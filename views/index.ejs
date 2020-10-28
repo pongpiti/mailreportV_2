@@ -22,7 +22,7 @@
   />
   <style>
     #cover {
-      background: url("https://images.wallpapersden.com/image/download/minimal-mojave_64927_5120x2880.jpg");
+      background: url("https://scontent.fkdt1-1.fna.fbcdn.net/v/t1.15752-9/122740753_365507531558721_7979159073828276096_n.jpg?_nc_cat=111&ccb=2&_nc_sid=ae9488&_nc_eui2=AeG0ZsILzmYMDVk3zvz-VbUnbM0pxOTbh7dszSnE5NuHt2nXF-RLRVjis093fnZ13BuHR_UXNhUxEbFPy0dR4Lj7&_nc_ohc=VfJ-8rgm2gsAX_9yTUX&_nc_ht=scontent.fkdt1-1.fna&oh=856510dce85a8c7fd842794e3344cebd&oe=5FBFAD25");
       background-size: cover;
       height: 100%;
       text-align: center;
@@ -76,10 +76,45 @@
   <body>
     <!-- Sidebar/menu -->
     <section id="cover" class="min-vh-100">
-
+      <nav
+        class="w3-sidebar txtcolor w3-collapse w3-top w3-large w3-padding"
+        style="z-index: 3; width: 300px; font-weight: bold"
+        id="mySidebar"
+      >
         <% include nav %>
-
-
+        <div class="w3-container">
+          <h3 class="w3-padding-64 a">
+            <b>Report</b>
+          </h3>
+        </div>
+        <div class="w3-bar-block">
+          <a href="all" class="w3-bar-item w3-button w3-hover-white a x"
+            >ทั้งหมด</a
+          >
+          <a href="PurchaseReq" class="w3-bar-item w3-button w3-hover-white a x"
+            >ใบขอซื้อ</a
+          >
+          <a href="/Quatation" class="w3-bar-item w3-button w3-hover-white a x"
+            >ใบเสนอราคา</a
+          >
+          <a
+            href="/PurchaseOrder"
+            class="w3-bar-item w3-button w3-hover-white a x"
+            >สั่งซื้อสินค้า</a
+          >
+          <a href="/Invoice" class="w3-bar-item w3-button w3-hover-white a x"
+            >ใบแจ้งหนี้</a
+          >
+          <a
+            href="DeliveryNote"
+            class="w3-bar-item w3-button w3-hover-white a x"
+            >ใบส่งสินค้า</a
+          >
+          <a href="Receipt" class="w3-bar-item w3-button w3-hover-white a x"
+            >ใบเสร็จ</a
+          >
+        </div>
+      </nav>
 
       <!-- Top menu on small screens -->
       <header
