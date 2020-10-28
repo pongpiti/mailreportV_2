@@ -282,7 +282,7 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("email");
-/*     var query = { subject: req.params.subject }; */
+    /*     var query = { subject: req.params.subject }; */
     var date = req.body.date;
     if (req.params.subject == "all") {
       MongoClient.connect(url, function (err, db) {
@@ -339,10 +339,9 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
       dbo
         .collection("data")
         .find({
-          $or: [
-            { subject: { $regex: date } },
-            { from: { $regex: date } },
-            { date: { $regex: date } },
+          $and: [
+            { $or: [{ from: { $regex: date } }, { date: { $regex: date } }] },
+            { $or: [{ subject: "ใบเสนอราคา" }] },
           ],
         })
         .toArray(function (err, result) {
@@ -380,10 +379,9 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
       dbo
         .collection("data")
         .find({
-          $or: [
-            { subject: { $regex: date } },
-            { from: { $regex: date } },
-            { date: { $regex: date } },
+          $and: [
+            { $or: [{ from: { $regex: date } }, { date: { $regex: date } }] },
+            { $or: [{ subject: "ใบแจ้งหนี้" }] },
           ],
         })
         .toArray(function (err, result) {
@@ -421,10 +419,9 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
       dbo
         .collection("data")
         .find({
-          $or: [
-            { subject: { $regex: date } },
-            { from: { $regex: date } },
-            { date: { $regex: date } },
+          $and: [
+            { $or: [{ from: { $regex: date } }, { date: { $regex: date } }] },
+            { $or: [{ subject: "ใบเสร็จ" }] },
           ],
         })
         .toArray(function (err, result) {
@@ -462,10 +459,9 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
       dbo
         .collection("data")
         .find({
-          $or: [
-            { subject: { $regex: date } },
-            { from: { $regex: date } },
-            { date: { $regex: date } },
+          $and: [
+            { $or: [{ from: { $regex: date } }, { date: { $regex: date } }] },
+            { $or: [{ subject: "สั่งซื้อสินค้า" }] },
           ],
         })
         .toArray(function (err, result) {
@@ -503,10 +499,9 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
       dbo
         .collection("data")
         .find({
-          $or: [
-            { subject: { $regex: date } },
-            { from: { $regex: date } },
-            { date: { $regex: date } },
+          $and: [
+            { $or: [{ from: { $regex: date } }, { date: { $regex: date } }] },
+            { $or: [{ subject: "ใบส่งสินค้า" }] },
           ],
         })
         .toArray(function (err, result) {
@@ -544,10 +539,9 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
       dbo
         .collection("data")
         .find({
-          $or: [
-            { subject: { $regex: date } },
-            { from: { $regex: date } },
-            { date: { $regex: date } },
+          $and: [
+            { $or: [{ from: { $regex: date } }, { date: { $regex: date } }] },
+            { $or: [{ subject: "ใบขอซื้อ" }] },
           ],
         })
         .toArray(function (err, result) {
@@ -645,10 +639,18 @@ router.post("/all", enSureAuthenticated, function (req, res, next) {
     dbo
       .collection("data")
       .find({
-        $or: [
-          { subject: { $regex: date } },
-          { from: { $regex: date } },
-          { date: { $regex: date } },
+        $and: [
+          { $or: [{ from: { $regex: date } }, { date: { $regex: date } }] },
+          {
+            $or: [
+              { subject: { $regex: "ใบเสนอราคา" } },
+              { subject: { $regex: "ใบแจ้งหนี้" } },
+              { subject: { $regex: "ใบเสร็จ" } },
+              { subject: { $regex: "สั่งซื้อสินค้า" } },
+              { subject: { $regex: "ใบส่งสินค้า" } },
+              { subject: { $regex: "ใบขอซื้อ" } },
+            ],
+          },
         ],
       })
       .toArray(function (err, result) {
