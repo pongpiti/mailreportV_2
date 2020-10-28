@@ -45,7 +45,7 @@ router.post(
     alert: "",
   }),
   function (req, res) {
-    res.redirect("/home");
+    res.redirect("/");
   }
 );
 passport.use(
