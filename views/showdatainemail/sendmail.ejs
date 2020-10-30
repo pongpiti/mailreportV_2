@@ -134,8 +134,9 @@
                         list="browsers"
                         name="subject"
                         placeholder="subject"
+                        required
                       />
-                      <datalist id="browsers" name="subject">
+                      <datalist id="browsers" name="subject" required>
                         <option value="ใบเสนอราคา">ใบเสนอราคา</option>
                         <option value="ใบแจ้งหนี้">ใบแจ้งหนี้</option>
                         <option value="ใบส่งสินค้า">ใบส่งสินค้า</option>
@@ -151,10 +152,9 @@
                         <textarea name="content"></textarea>
                         <input
                           type="file"
-                          required
                           class="form-control"
                           name="image"
-                          id=""
+                          multiple
                         />
                         <script>
                           CKEDITOR.replace("content");
@@ -214,10 +214,10 @@
                   </div>
                   <input
                     type="file"
+                    required
                     class="form-control"
                     name="image"
                     id=""
-                    multiple
                   />
                   <div class="py-5">
                     <button type="submit" class="btn btn-dark btn-lg">
