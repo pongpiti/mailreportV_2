@@ -591,13 +591,12 @@ router.post("/sendemail", (req, res) => {
       subject = req.body.subject;
       body = req.body.content;
       path = req.file.path;
-      xxx = req.body.image;
+      xxx = req.file.image;
       console.log(xxx);
       console.log(to);
       console.log(subject);
       console.log(body);
       console.log(req.file);
-      console.log(req.files);
       var transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
@@ -618,7 +617,7 @@ router.post("/sendemail", (req, res) => {
         html: body,
         attachments: [
           {
-            filename: xxx,
+            filename: req.file.originalname,
             path: path,
           },
         ],
