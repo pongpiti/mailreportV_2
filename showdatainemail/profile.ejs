@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>Home</title>
+  <link
+    rel="shortcut icon"
+    href="https://image.flaticon.com/icons/png/512/1055/1055644.png"
+    type="image/x-icon"
+  />
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Poppins"
+  />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
+  <style>
+    #cover {
+      background: url("https://images.wallpapersden.com/image/download/minimal-mojave_64927_5120x2880.jpg");
+      background-size: cover;
+      height: 100%;
+      text-align: center;
+    }
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      font-size: 16px;
+    }
+    .w3-half img {
+      margin-bottom: -6px;
+      margin-top: 16px;
+      opacity: 0.8;
+      cursor: pointer;
+    }
+    .w3-half img:hover {
+      opacity: 1;
+    }
+    table {
+      border: 2px solid;
+    }
+    .tt {
+      color: white;
+    }
+    .txtcolor {
+      background: #21313c;
+    }
+    .a {
+      color: white;
+    }
+    .x {
+      font-family: "Kanit", sans-serif;
+      text-align: center;
+      color: white;
+    }
+    .bla {
+      font-family: "Kanit", sans-serif;
+      text-align: center;
+      color: black;
+    }
+  </style>
+  <body>
+    <!-- Sidebar/menu -->
+    <section id="cover" class="min-vh-100">
+    
+        <% include ../nav %>
+    
+
+
+      <!-- Top menu on small screens -->
+      <header
+        class="w3-container w3-top w3-hide-large txtcolor w3-xlarge w3-padding"
+      >
+        <a
+          href="javascript:void(0)"
+          class="w3-button txtcolor a w3-margin-right"
+          onclick="w3_open()"
+          >☰</a
+        >
+        <span class="a">Report</span>
+      </header>
+
+      <!-- Overlay effect when opening sidebar on small screens -->
+      <div
+        class="w3-overlay w3-hide-large"
+        onclick="w3_close()"
+        style="cursor: pointer"
+        title="close side menu"
+        id="myOverlay"
+      ></div>
+
+      <!-- !PAGE CONTENT! -->
+      <header class="w3-container w3-center" style="padding: 5% 16px">
+        <div class="w3-main" style="margin-left: 340px; margin-right: 40px">
+          <div class="container py-5">
+            <div class="row bg-light shadow">
+      
+              <div class="col-12 py-5">
+                <h2 class="bla p-3">
+                  ระบบจัดการจดหมายอิเล็กทรอนิกส์ผ่านเว็บแอปพลิเคชัน
+                  กรณีศึกษาบริษัทเอกชน
+                </h2>
+                <hr />
+                <h3 class="bla py-3">ผู้จัดทำ</h3>
+                <hr />
+              </div>
+
+              <div class="col-4 py-3">
+                <img
+                  src="https://scontent.xx.fbcdn.net/v/t1.15752-0/p280x280/122824062_733528927507425_2748227418546661531_n.jpg?_nc_cat=101&ccb=2&_nc_sid=ae9488&_nc_eui2=AeE3rwA9ZvG-raNtbfcxr7QvfFN6GLGxwyd8U3oYsbHDJ2dbdCA_msMU887yhpILyD7MPr4rtZ2-iDM2Br1vFsQF&_nc_ohc=AV165AonNPgAX92Rm-A&_nc_oc=AQm6RPTU2_9xWTG4y-IPlh6MpSu0IY61LR7x8lCJonfGFbhWq7tzL7vv2XPnldRybBo&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&tp=6&oh=a858c9b143d87c09e479b42f7ba322c8&oe=5FC005A8"
+                  alt=""
+                  width="70%"
+                />
+                <div class="py-3">
+                  <p class="py-3 bla">พงศธร รัตนอาษา</p>
+                  <p class="bla">ปวค 60-1 056050201027-8</p>
+                </div>
+              </div>
+              <div class="col-4 py-3">
+                <img
+                  src="https://scontent.fkdt1-1.fna.fbcdn.net/v/t1.15752-9/105009931_2802942209925431_7058359298736955907_n.jpg?_nc_cat=102&ccb=2&_nc_sid=ae9488&_nc_eui2=AeEWrrVo8XDKuXt5JKELONzVIW56ZMVmSNYhbnpkxWZI1oEuYitdDces7wA0yBJb1UT7HTAS36ZY2GmAclpm1_D0&_nc_ohc=zzx9c5tt47kAX8JDAlI&_nc_ht=scontent.fkdt1-1.fna&oh=9f202518c562de5a224c62251d800af8&oe=5FBFA384"
+                  alt=""
+                  width="70%"
+                />
+                <div class="py-3">
+                  <p class="py-3 bla">พงษ์ปิติ บุญยัง</p>
+                  <p class="bla">ปวค 60-1 056050201042-7</p>
+                </div>
+              </div>
+              <div class="col-4 py-3">
+                <img
+                  src="https://scontent.fkdt1-1.fna.fbcdn.net/v/t1.15752-9/105938014_864941113992771_847315172317020678_n.jpg?_nc_cat=102&ccb=2&_nc_sid=ae9488&_nc_eui2=AeHUu5Y6QNWHP2Nv4zlgBAf1MFOh6jZxnGYwU6HqNnGcZiPNjlB9R_6zlvg4MmEozGU5-UAcaQhwY5zN8GQiMd3M&_nc_ohc=VR01y1bTBwMAX_eejUM&_nc_ht=scontent.fkdt1-1.fna&oh=1be43bd52fa2b879cedd59b594a551ad&oe=5FBDFAAB"
+                  alt=""
+                  width="70%"
+                />
+                <div class="py-3">
+                  <p class="py-3 bla">ฐิติวุฒิ แช่มช้อย</p>
+                  <p class="bla">ปวค 60-1 056050201043-5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </section>
+    <script>
+      // Script to open and close sidebar
+      function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+        document.getElementById("myOverlay").style.display = "block";
+      }
+
+      function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+        document.getElementById("myOverlay").style.display = "none";
+      }
+
+      // Modal Image Gallery
+      function onClick(element) {
+        document.getElementById("img01").src = element.src;
+        document.getElementById("modal01").style.display = "block";
+        var captionText = document.getElementById("caption");
+        captionText.innerHTML = element.alt;
+      }
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
