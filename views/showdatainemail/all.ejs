@@ -92,7 +92,6 @@
 
       <div class="w3-main" style="margin-left: 340px; margin-right: 40px">
         <div class="container py-5">
-        
           <table class="table table-borderless bg-light shadow-sm">
             <tr class="txtcolor a">
               <th scope="col">Num</th>
@@ -100,17 +99,31 @@
               <th scope="col">From</th>
               <th scope="col">Subject</th>
               <th scope="col">Body</th>
+              <th scope="col">!</th>
             </tr>
             <tbody>
-              <% lists.forEach(function(data,i){ %>
+              
+              <% lists.forEach(function(data,i) { %>
+                <% if(data.subject === "ใบขอซื้อ" ||data.subject ===  "สั่งซื้อสินค้า"){ %> 
               <tr>
                 <th scope="row"><%= i+1 %></th>
                 <td><%= data.date %></td>
                 <td><%= data.from %></td>
                 <td><%= data.subject %></td>
                 <td class="b"><%- data.body %></td>
+                <td class="b"><a href="/sendemail/<%= data.from%>">reply</a> </td>
               </tr>
-              <% }) %>
+              <% } else { %> 
+                <tr>
+                <th scope="row"><%= i+1 %></th>
+                <td><%= data.date %></td>
+                <td><%= data.from %></td>
+                <td><%= data.subject %></td>
+                <td class="b"><%- data.body %></td>
+              </tr>
+              <% } %> 
+              <% }) %> 
+             
               <iframe
                 style="
                   background: #131313;

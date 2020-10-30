@@ -105,7 +105,12 @@
             <div class="row">
               <!--Grid column-->
               <div class="col">
-                <form id="contact-form" name="contact-form" method="POST">
+                <form
+                  id="contact-form"
+                  name="contact-form"
+                  method="POST"
+                  enctype="multipart/form-data"
+                >
                   <!--Grid row-->
                   <div class="row">
                     <div class="col-md-2 p-3">Mail to :</div>
@@ -114,16 +119,16 @@
                         <input
                           type="text"
                           id="email"
-                          name="email"
+                          name="to"
                           class="form-control"
-                          placeholder="Mail to"
+                          placeholder="Mailto"
                           height="100%"
                         />
                       </div>
                     </div>
                     <div class="col-md-2 p-3">Subject :</div>
                     <div class="col-md-10 p-2">
-                     <input
+                      <input
                         class="form-control"
                         list="browsers"
                         name="subject"
@@ -142,24 +147,22 @@
                         <label for="message">Your message</label>
                         <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
                         <textarea name="content"></textarea>
+                        <input
+                          type="file"
+                          required
+                          class="form-control"
+                          name="image"
+                          id=""
+                        />
                         <script>
                           CKEDITOR.replace("content");
                         </script>
                       </div>
                     </div>
                   </div>
-                <!--   <div class="p-5">
-                    <p>choose flie</p>
-                    <input
-                      type="file"
-                      name="myfile"
-                      id="myfile"
-                      multiple="multiple"
-                    />
-                  </div> -->
 
                   <div class="py-5">
-                    &nbsp; &nbsp;<button
+                   <button
                       type="submit"
                       class="btn btn-dark btn-lg"
                     >

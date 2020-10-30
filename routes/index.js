@@ -1,10 +1,11 @@
 const { request } = require("express");
 var express = require("express");
 var router = express.Router();
-var JsSearch = require("js-search");
 var multer = require("multer");
 var nodemailer = require("nodemailer");
 var MongoClient = require("mongodb").MongoClient;
+const bodyParser = require("body-parser");
+
 var url =
   "mongodb+srv://pongpiti_1:1234@cluster0-rbtdf.mongodb.net/email?retryWrites=true&w=majority";
 
@@ -558,66 +559,113 @@ router.post("/show/:subject", enSureAuthenticated, function (req, res, next) {
 });
 
 router.get("/sendemail", enSureAuthenticated, function (req, res, next) {
-  res.render("showdatainemail/sendmail");
+  var from = req.params.from;
+  res.render("showdatainemail/sendmail", { from: from });
 });
 
-router.post("/sendemail", enSureAuthenticated, function (req, res, next) {
-  var email = req.body.email;
-  var subject = req.body.subject;
-  var message = req.body.content;
-  var fileX = req.body.myfile;
+var to;
+var subject;
+var body;
+var path;
 
-  async function main() {
-    let transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true, // true for 465, false for other ports
-      auth: {
-        // ข้อมูลการเข้าสู่ระบบ
-        user: "pongpiti23.23@gmail.com", // email user ของเรา
-        pass: "pongpiti1751", // email password
-      },
-      tls: {
-        // do not fail on invalid certs
-        rejectUnauthorized: false,
-      },
-    });
-    // เริ่มทำการส่งอีเมล
-    let info = await transporter.sendMail({
-      from: email, // อีเมลผู้ส่ง
-      to: email, // อีเมลผู้รับ สามารถกำหนดได้มากกว่า 1 อีเมล โดยขั้นด้วย ,(Comma)
-      subject: subject, // หัวข้ออีเมล
-      html: message,
-      /*  attachments: [{ filename: fileX, path: fileX }],  */ // plain text body
-    });
+var Storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, "./images");
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+  },
+});
 
-    MongoClient.connect(url, function (err, db) {
-      var a = new Date();
-      var b = new Date();
-      var c = new Date();
-      var day = a.getDate();
-      var month = b.getMonth() + 1;
-      var year = c.getFullYear();
-      if (err) throw err;
-      var dbo = db.db("email");
-      var myobj = [
-        {
-          date: day + "-" + month + "-" + year,
-          from: email,
-          subject: subject,
-          body: message,
+var upload = multer({
+  storage: Storage,
+}).single("image"); //Field name and max count
+
+router.post("/sendemail", (req, res) => {
+  upload(req, res, function (err) {
+    if (err) {
+      console.log(err);
+      return res.end("Something went wrong!");
+    } else {
+      to = req.body.to;
+      subject = req.body.subject;
+      body = req.body.content;
+      path = req.file.path;
+      xxx = req.body.image;
+      console.log(xxx);
+      console.log(to);
+      console.log(subject);
+      console.log(body);
+      console.log(req.file);
+      console.log(req.files);
+      var transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+          // ข้อมูลการเข้าสู่ระบบ
+          user: "pongpiti23.23@gmail.com", // email user ของเรา
+          pass: "pongpiti1751", // email password
         },
-      ];
-      dbo.collection("data").insertMany(myobj, function (err, res) {
-        if (err) throw err;
-        db.close();
+        tls: {
+          // do not fail on invalid certs
+          rejectUnauthorized: false,
+        },
       });
-    });
-    // log ข้อมูลการส่งว่าส่งได้-ไม่ได้
-    console.log("Message sent: %s", info.messageId);
-    res.render("index");
-  }
-  main().catch(console.error);
+      var mailOptions = {
+        to: to,
+        subject: subject,
+        html: body,
+        attachments: [
+          {
+            filename: xxx,
+            path: path,
+          },
+        ],
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+          MongoClient.connect(url, function (err, db) {
+            var a = new Date();
+            var b = new Date();
+            var c = new Date();
+            var day = a.getDate();
+            var month = b.getMonth() + 1;
+            var year = c.getFullYear();
+            if (err) throw err;
+            var dbo = db.db("email");
+            var myobj = [
+              {
+                date: day + "-" + month + "-" + year,
+                from: to,
+                subject: subject,
+                body: body,
+              },
+            ];
+            dbo.collection("data").insertMany(myobj, function (err, res) {
+              if (err) throw err;
+              db.close();
+            });
+          });
+          // log ข้อมูลการส่งว่าส่งได้-ไม่ได้
+          console.log("Message sent: %s", info.messageId);
+          res.render("index");
+          fs.unlink(path, function (err) {
+            if (err) {
+              return res.end(err);
+            } else {
+              console.log("deleted");
+              return res.render("index");
+            }
+          });
+        }
+      });
+    }
+  });
 });
 
 router.post("/all", enSureAuthenticated, function (req, res, next) {
