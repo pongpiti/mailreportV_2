@@ -150,11 +150,12 @@
                         <label for="message">Your message</label>
                         <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
                         <textarea name="content"></textarea>
-                         <input
+                        <br />
+                        <input
                           type="file"
                           class="form-control-file"
                           name="image"
-                  
+                          multiple
                         />
                         <script>
                           CKEDITOR.replace("content");
@@ -162,11 +163,9 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="py-5">
-                   <button
-                      type="submit"
-                      class="btn btn-dark btn-lg"
-                    >
+                    <button type="submit" class="btn btn-dark btn-lg">
                       Submit
                     </button>
                   </div>
