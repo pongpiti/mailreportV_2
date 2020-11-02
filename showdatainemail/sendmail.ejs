@@ -150,12 +150,15 @@
                         <label for="message">Your message</label>
                         <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
                         <textarea name="content"></textarea>
+                        
+                        <div class="custom-file">
                         <input
                           type="file"
-                          class="form-control"
-                          name="image"
-                          multiple
-                        />
+                          class="custom-file-input"
+                          name="image"                  
+                        /> 
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
                         <script>
                           CKEDITOR.replace("content");
                         </script>
